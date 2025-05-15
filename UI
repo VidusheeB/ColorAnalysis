@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"> 
+  <title>Color Analysis</title>
+ 
+  <style>
+    body {
+      font-family: "Comic Sans MS", "Comic Sans", cursive;
+      font-size: 1.3rem;
+      color: #333;
+      padding: 2rem; 
+      text-align: center;  
+      background-color: #d19a94; /*dusty pink :) */
+    }
+    input {
+      margin-top: 1rem;        
+    }
+      div.textbox {
+         position: absolute; /* allows me to position the textbox*/
+         height: 100px;
+         width: 1000px;  
+         overflow-x: hidden; /*hides things if they go out of bounds*/
+         overflow-y: scroll; /* will let me scroll if the content is too long*/
+         left: -250px; 
+         top: 800px;
+         font-size: 13px !important; /*overrider, kind of like in inheritance*/
+      }
+       table {
+         position: absolute;
+         width: 500px;
+         height: 200px;
+         table-layout: fixed; /* equal widths */
+         left: 600px;
+         top: 550px;
+       }
+  </style>
+</head>
+<body>
+  <h1> Color Analysis</h1>
+  <h5> Inspired by modern and advanced Korean cosmetic <br>
+    technologies, we have created this website to make Color <br>
+    Analysis accessible no matter where you live!</h5>
+  
+  
+  <h3> Upload an Image</h3>
+  
+  <div class="first">
+    <p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"></p> <!--p means a section/paragraph-->
+    <p><img id="output" height="200" /></p>
+  </div>
+  
+  <div class="textbox">
+  Created by: Vidushee Bala, Siobahn Campbell, Rachel Dong, Yashvi Jaladi
+  </div>
+
+  <script type="text/javascript">
+    var loadFile = function(event) {
+      var image = document.getElementById('output');
+      image.src = URL.createObjectURL(event.target.files[0]);
+    };
+  </script>
+
+  
+  <table border="1"> <!--tr creates a row, td creates a column-->
+  <tr>
+  <td> 1 </td>
+  <td> 2 </td>
+  <td> 3 </td>
+  <td> 4 </td>
+  <td> 5 </td> 
+  </tr>
+  <tr>
+  <td> 1 </td>    
+  <td>  2</td>
+  <td>  3</td>
+  <td> 4 </td>
+  <td>5  </td> 
+  </tr>
+    
+  <p><img id="output" height="200" /></p>
+   </td></tr>
+  </table>
+  
+  </body>
+  
+</html>
