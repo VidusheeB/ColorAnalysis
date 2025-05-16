@@ -1,9 +1,21 @@
-@Service
-public class OpenAIService {
-  //private static final String OPENAI_API_KEY = *NEED REAL API KEY*
-  private static final String API_URL = "https://api.openai.com/v1/chat/completions";
-  public String analyzeImage(MultipartFile image) throws IOException {
-  byte[] imageBytes = image.getBytes();
-  String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-  
-  
+@Controller
+public class ColorAppController {
+  @Autowired
+  private OpenAIService openAIService;
+  @PostMapping("/upload")
+  public String handleUpload(@RequestParam("image") MultipartFile image, Model model) throws IOException {
+      String result = openAIService.analyzeImage(image);
+      List<String> hexCodes = extractHexColors(result);
+      model.addAttribute("resultText", result);   // Natural language result
+      model.addAttribute("swatches", hexCodes);   // Color blocks
+      return "index";
+  }
+  private List<String> extractHexColors(String text) {
+      List<String> hexColors = new ArrayList<>();
+      Matcher matcher = Pattern.compile("#[0-9a-fA-F]{6}").matcher(text);
+      while (matcher.find()) {
+          hexColors.add(matcher.group());
+      }
+      return hexColors;
+  }
+}
