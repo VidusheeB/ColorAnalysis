@@ -6,8 +6,8 @@ public class ColorAppController {
   public String handleUpload(@RequestParam("image") MultipartFile image, Model model) throws IOException {
       String result = openAIService.analyzeImage(image);
       List<String> hexCodes = extractHexColors(result);
-      model.addAttribute("resultText", result);   // Natural language result
-      model.addAttribute("swatches", hexCodes);   // Color blocks
+      model.addAttribute("resultText", result);   
+      model.addAttribute("swatches", hexCodes);   
       return "index";
   }
   private List<String> extractHexColors(String text) {
