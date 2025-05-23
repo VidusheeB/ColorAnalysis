@@ -116,7 +116,7 @@
          width: 100px;
          left: 600px;
          top: 575px;
-         background-color: red;
+         background-color: #a76f6a;
          /*clear: both*/
        }
        #myBox2 {
@@ -125,7 +125,7 @@
          width: 100px;
          left: 700px;
          top: 575px;
-         background-color: green;
+         background-color: #a76f6a;
          /*clear: both*/
        }
        #myBox3 {
@@ -134,7 +134,7 @@
          width: 100px;
          left: 800px;
          top: 575px;
-         background-color: red;
+         background-color: #a76f6a;
          /*clear: both*/
        }
        #myBox4 {
@@ -143,7 +143,7 @@
          width: 100px;
          left: 900px;
          top: 575px;
-         background-color: green;
+         background-color: #a76f6a;
          /*clear: both*/
        }
        #myBox5 {
@@ -152,7 +152,7 @@
          width: 100px;
          left: 1000px;
          top: 575px;
-         background-color: red;
+         background-color: #a76f6a;
          /*clear: both*/
        }
        #myBox6 {
@@ -161,7 +161,7 @@
          width: 100px;
          left: 600px;
          top: 675px;
-         background-color: green;
+         background-color: #a76f6a;
          /*clear: both*/
        }
        #myBox7 {
@@ -170,7 +170,7 @@
          width: 100px;
          left: 700px;
          top: 675px;
-         background-color: red;
+         background-color: #a76f6a;
          /*clear: both*/
        }
        #myBox8 {
@@ -179,7 +179,7 @@
          width: 100px;
          left: 800px;
          top: 675px;
-         background-color: green;
+         background-color: #a76f6a;
          /*clear: both*/
        }
        #myBox9 {
@@ -188,7 +188,7 @@
          width: 100px;
          left: 900px;
          top: 675px;
-         background-color: red;
+         background-color: #a76f6a;
          /*clear: both*/
        }
        #myBox10 {
@@ -197,7 +197,7 @@
          width: 100px;
          left: 1000px;
          top: 675px;
-         background-color: green;
+         background-color: #a76f6a;
          /*clear: both*/
        }
       .button {
@@ -227,30 +227,18 @@
         color: white;
       }
 
-     .button2 {
-        position: absolute;
-        background-color: white;
-        color: black;
-        left: 1125px;
-        top: 410px;
-     }
-    
-      .button2:hover {
-        background-color: #a76f6a;
-        color: white;
-      }
-
     
   </style>
 </head>
 <body>
-  <h1> Color Analysis</h1>
+  <h1> Hue are You?</h1>
   <h5> Inspired by modern and advanced Korean cosmetic <br>
     technologies, we have created this website to make Color <br>
     Analysis accessible no matter where you live!</h5>
 
   <h3> Upload an Image</h3>
 
+  <form id="uploadForm" enctype="multipart/form-data">
   <div class="first">
     <p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"></p> <!--p means a section/paragraph-->
     <p><img id="output" height="150" /></p>
@@ -280,51 +268,80 @@
       var image = document.getElementById('output');
       image.src = URL.createObjectURL(event.target.files[0]);
     }
+    // Function that handles form submission
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Stop the page from reloading
+
+      const fileInput = document.getElementById('file');  // Get the input element
+      const file = fileInput.files[0];                    // Get the first file selected
+
+      if (!file) {
+        alert('Please select a file first.');  // Warn if no file is selected
+        return;
+      }
+
+      const formData = new FormData();          // Create a new FormData object
+      formData.append('image', file);           // Add the image file to it (key must match backend)
+
+      // Send the image to the backend using fetch
+      fetch('/upload', {                        // Replace '/upload' with your real endpoint
+        method: 'POST',
+        body: formData                          // FormData handles setting the correct headers
+      })
+      .then(response => response.text())        // Read the response as plain text
+      .then(result => {
+        alert('Upload successful:\n' + result); // Show a success message
+      })
+      .catch(error => {
+        console.error('Error:', error);         // Print error to console
+        alert('Upload failed.');                // Show error message
+      });
+    });
+    
   </script>
 
   <table class = "table5" border="1">
     <tr>
-      <td>Header 1</td>
-      <td>Header 2</td>
-      <td>Header 2</td>
-      <td>Header 2</td>
-      <td>Header 2</td>
+      <td>#</td>
+      <td>#</td>
+      <td>#</td>
+      <td>#</td>
+      <td>#</td>
     </tr>
     <tr>
-      <td>Header 2</td>
-      <td>Header 2</td>
-      <td>Header 2</td>
-      <td>Header 2</td>
-      <td>Header 2</td>
+      <td>#</td>
+      <td>#</td>
+      <td>#</td>
+      <td>#</td>
+      <td>#</td>
     </tr>
   </table>
   
-   <button class="button button1"> Submit this image!</button>
-   <button class="button button2"> Get your color analysis!</button>
+   <button type = "submit" class="button button1"> Submit this image!</button>
 
- <a target='_new' href="taylorSwift.jpeg"><img class="taylor"  src = "taylorSwift.jpeg" alt = "Taylor Swift" height = "256"></a>
+ <a target='_new' href="taylorSwift.jpg"><img class="taylor"  src = "taylorSwift.jpg" alt = "Taylor Swift" height = "256"></a>
 
-  <a target='_new' href="ryanReynolds.jpeg"> <img class="ryan"  src = "ryanReynolds.jpeg" alt = "Ryan Reynolds" height = "256"></a>
+  <a target='_new' href="ryanReynolds.jpg"> <img class="ryan"  src = "ryanReynolds.jpg" alt = "Ryan Reynolds" height = "256"></a>
 
-  <a target='_new' href="menaMassoud.jpeg"> <img class="mena"  src = "menaMassoud.jpeg" alt = "Mena Massoud" height = "256"></a>
+  <a target='_new' href="menaMassoud.jpg"> <img class="mena"  src = "menaMassoud.jpg" alt = "Mena Massoud" height = "256"></a>
 
-  <a target='_new' href="adele.jpeg"> <img class="adele"  src = "adele.jpeg" alt = "Adele" height = "256"></a>
+  <a target='_new' href="adele.jpg"> <img class="adele"  src = "adele.jpg" alt = "Adele" height = "256"></a>
 
-  <a target='_new' href="zendaya.jpeg"> <img class="zendaya"  src = "zendaya.jpeg" alt = "Zendaya" height = "256"></a>
+  <a target='_new' href="zendaya.jpg"> <img class="zendaya"  src = "zendaya.jpg" alt = "Zendaya" height = "256"></a>
   
-  <a target='_new' href="constanceWu.jpeg"> <img class="constance"  src = "constanceWu.jpeg" alt = "Constance Wu" height = "256"></a>
+  <a target='_new' href="constanceWu.jpg"> <img class="constance"  src = "constanceWu.jpg" alt = "Constance Wu" height = "256"></a>
 
-  <a target='_new' href="anokYai.jpeg"> <img class="anok"  src = "anokYai.jpeg" alt = "Anok Yai" height = "256"></a>
+  <a target='_new' href="anokYai.jpg"> <img class="anok"  src = "anokYai.jpg" alt = "Anok Yai" height = "256"></a>
 
-  <a target='_new' href="mattBomer.jpeg"> <img class="matt"  src = "mattBomer.jpeg" alt = "Matt Bomer" height = "256"></a>
+  <a target='_new' href="mattBomer.jpg"> <img class="matt"  src = "mattBomer.jpg" alt = "Matt Bomer" height = "256"></a>
 
-  <a target='_new' href="henryCavill.jpeg"> <img class="henry"  src = "henryCavill.jpeg" alt = "Henry Cavill" height = "256"></a>
+  <a target='_new' href="henryCavill.jpg"> <img class="henry"  src = "henryCavill.jpg" alt = "Henry Cavill" height = "256"></a>
 
-  <a target='_new' href= "leeMinho.jpeg"> <img class="lee"  src = "leeMinho.jpeg" alt = "Lee Minho" height = "256"></a>
+  <a target='_new' href= "leeMinho.jpg"> <img class="lee"  src = "leeMinho.jpg" alt = "Lee Minho" height = "256"></a>
   
-   <a target='_new' href= "bellaHadid.jpeg"> <img class="bella"  src = "bellaHadid.jpeg" alt = "Bella Hadid" height = "256"></a>
+   <a target='_new' href= "bellaHadid.jpg"> <img class="bella"  src = "bellaHadid.jpg" alt = "Bella Hadid" height = "256"></a>
 
-  <a target='_new' href="lucasTill.jpeg"> <img class="lucas"  src = "lucasTill.jpeg" alt = "Lucas Till" height = "256"></a>
+  <a target='_new' href="lucasTill.jpg"> <img class="lucas"  src = "lucasTill.jpg" alt = "Lucas Till" height = "256"></a>
 
   
   
