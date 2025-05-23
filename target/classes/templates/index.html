@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"> 
+  <title>Color Analysis</title>
+
+  <style>
+    body {
+      font-family: "Comic Sans MS", "Comic Sans", cursive;
+      font-size: 1.3rem;
+      color: #333;
+      padding: 1rem; 
+      text-align: center;
+      background-color: #d19a94; /*dusty pink :) */
+    }
+    input {
+      margin-top: 1rem;        
+    }
+      div.textbox1 {
+         position: absolute; /* allows me to position the textbox*/
+         height: 100px;
+         width: 1000px;  
+         overflow-x: hidden; /*hides things if they go out of bounds*/
+         overflow-y: scroll; /* will let me scroll if the content is too long*/
+         left: -250px; 
+         bottom: -75px;
+         font-size: 13px !important; /*overrider, kind of like in inheritance*/
+      }
+    div.textbox2{
+       position: absolute; /* allows me to position the textbox*/
+       height: 100px;
+       width: 1000px;  
+       overflow-x: hidden; /*hides things if they go out of bounds*/
+       overflow-y: scroll; /* will let me scroll if the content is too long*/
+       left: 190px; 
+       top: 540px;
+       font-size: 18px !important; /*overrider, kind of like in inheritance*/
+    }
+    
+      table.table5{
+         position: absolute;
+         width: 500px;
+         height: 200px;
+         table-layout: fixed;
+         left: 600px;
+         top: 575px;
+         border-collapse: collapse;
+         border-color: #000000;
+      }
+
+     .taylor {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+     }
+
+     .ryan{
+      position: absolute;
+      top: 24px;
+      left: 197px;
+     }
+     .mena{
+      position: absolute;
+      top: 284px;
+      left: 24px;
+     }
+     .adele{
+        position: absolute;
+        top: 284px;
+        left: 197px;
+     }
+     .zendaya{
+        position: absolute;
+        top: 544px;
+        left: 197px;
+     }
+     .constance{
+        position: absolute;
+        top: 544px;
+        left: 24px;
+     }
+     .bella{
+        position: absolute;
+        top: 544px;
+        right: 24px;
+     }
+     .matt{
+        position: absolute;
+        top: 284px;
+        right: 24px;
+     }
+     .lucas{
+        position: absolute;
+        top: 24px;
+        right: 24px;
+     }
+     .lee{
+      position: absolute;
+      top: 24px;
+      right: 197px;
+     }
+     .henry{
+        position: absolute;
+        top: 284px;
+        right: 197px;
+     }
+     .anok{
+        position: absolute;
+        top: 544px;
+        right: 197px;
+     }
+    
+       #myBox1 {
+         position: absolute;
+         height: 100px;
+         width: 100px;
+         left: 600px;
+         top: 575px;
+         background-color: red;
+         /*clear: both*/
+       }
+       #myBox2 {
+         position: absolute;
+         height: 100px;
+         width: 100px;
+         left: 700px;
+         top: 575px;
+         background-color: green;
+         /*clear: both*/
+       }
+       #myBox3 {
+         position: absolute;
+         height: 100px;
+         width: 100px;
+         left: 800px;
+         top: 575px;
+         background-color: red;
+         /*clear: both*/
+       }
+       #myBox4 {
+         position: absolute;
+         height: 100px;
+         width: 100px;
+         left: 900px;
+         top: 575px;
+         background-color: green;
+         /*clear: both*/
+       }
+       #myBox5 {
+         position: absolute;
+         height: 100px;
+         width: 100px;
+         left: 1000px;
+         top: 575px;
+         background-color: red;
+         /*clear: both*/
+       }
+       #myBox6 {
+         position: absolute;
+         height: 100px;
+         width: 100px;
+         left: 600px;
+         top: 675px;
+         background-color: green;
+         /*clear: both*/
+       }
+       #myBox7 {
+         position: absolute;
+         height: 100px;
+         width: 100px;
+         left: 700px;
+         top: 675px;
+         background-color: red;
+         /*clear: both*/
+       }
+       #myBox8 {
+         position: absolute;
+         height: 100px;
+         width: 100px;
+         left: 800px;
+         top: 675px;
+         background-color: green;
+         /*clear: both*/
+       }
+       #myBox9 {
+         position: absolute;
+         height: 100px;
+         width: 100px;
+         left: 900px;
+         top: 675px;
+         background-color: red;
+         /*clear: both*/
+       }
+       #myBox10 {
+         position: absolute;
+         height: 100px;
+         width: 100px;
+         left: 1000px;
+         top: 675px;
+         background-color: green;
+         /*clear: both*/
+       }
+      .button {
+        border: none;
+        color: white;
+        /*padding: 16px 32px;*/
+        text-align: center;
+        text-decoration: none;
+        display: inline-block; /*allows me to set height/width*/
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border: 2.5px solid #a76f6a;
+        transition-duration: 0.4s;
+      }
+  
+      .button1 {
+        position: absolute;
+        background-color: white;
+        color: black;
+        left: 1125px;
+        top: 350px;
+      }
+  
+      .button1:hover {
+        background-color: #a76f6a;
+        color: white;
+      }
+
+     .button2 {
+        position: absolute;
+        background-color: white;
+        color: black;
+        left: 1125px;
+        top: 410px;
+     }
+    
+      .button2:hover {
+        background-color: #a76f6a;
+        color: white;
+      }
+
+    
+  </style>
+</head>
+<body>
+  <h1> Color Analysis</h1>
+  <h5> Inspired by modern and advanced Korean cosmetic <br>
+    technologies, we have created this website to make Color <br>
+    Analysis accessible no matter where you live!</h5>
+
+  <h3> Upload an Image</h3>
+
+  <div class="first">
+    <p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"></p> <!--p means a section/paragraph-->
+    <p><img id="output" height="150" /></p>
+  </div>
+
+  <div class="textbox1">
+  Created by: Vidushee Bala, Siobhan Campbell, Rachel Dong, Yashvi Jaladi
+  </div>
+
+  <div class="textbox2">
+  Your color palette is:
+  </div>
+
+    <div id="myBox1"></div>
+  <div id="myBox2"></div>
+  <div id="myBox3"></div>
+  <div id="myBox4"></div>
+  <div id="myBox5"></div>
+  <div id="myBox6"></div>
+  <div id="myBox7"></div>
+  <div id="myBox8"></div>
+  <div id="myBox9"></div>
+  <div id="myBox10"></div>
+  
+  <script type="text/javascript">
+    var loadFile = function(event) {
+      var image = document.getElementById('output');
+      image.src = URL.createObjectURL(event.target.files[0]);
+    }
+  </script>
+
+  <table class = "table5" border="1">
+    <tr>
+      <td>Header 1</td>
+      <td>Header 2</td>
+      <td>Header 2</td>
+      <td>Header 2</td>
+      <td>Header 2</td>
+    </tr>
+    <tr>
+      <td>Header 2</td>
+      <td>Header 2</td>
+      <td>Header 2</td>
+      <td>Header 2</td>
+      <td>Header 2</td>
+    </tr>
+  </table>
+  
+   <button class="button button1"> Submit this image!</button>
+   <button class="button button2"> Get your color analysis!</button>
+
+ <a target='_new' href="taylorSwift.jpeg"><img class="taylor"  src = "taylorSwift.jpeg" alt = "Taylor Swift" height = "256"></a>
+
+  <a target='_new' href="ryanReynolds.jpeg"> <img class="ryan"  src = "ryanReynolds.jpeg" alt = "Ryan Reynolds" height = "256"></a>
+
+  <a target='_new' href="menaMassoud.jpeg"> <img class="mena"  src = "menaMassoud.jpeg" alt = "Mena Massoud" height = "256"></a>
+
+  <a target='_new' href="adele.jpeg"> <img class="adele"  src = "adele.jpeg" alt = "Adele" height = "256"></a>
+
+  <a target='_new' href="zendaya.jpeg"> <img class="zendaya"  src = "zendaya.jpeg" alt = "Zendaya" height = "256"></a>
+  
+  <a target='_new' href="constanceWu.jpeg"> <img class="constance"  src = "constanceWu.jpeg" alt = "Constance Wu" height = "256"></a>
+
+  <a target='_new' href="anokYai.jpeg"> <img class="anok"  src = "anokYai.jpeg" alt = "Anok Yai" height = "256"></a>
+
+  <a target='_new' href="mattBomer.jpeg"> <img class="matt"  src = "mattBomer.jpeg" alt = "Matt Bomer" height = "256"></a>
+
+  <a target='_new' href="henryCavill.jpeg"> <img class="henry"  src = "henryCavill.jpeg" alt = "Henry Cavill" height = "256"></a>
+
+  <a target='_new' href= "leeMinho.jpeg"> <img class="lee"  src = "leeMinho.jpeg" alt = "Lee Minho" height = "256"></a>
+  
+   <a target='_new' href= "bellaHadid.jpeg"> <img class="bella"  src = "bellaHadid.jpeg" alt = "Bella Hadid" height = "256"></a>
+
+  <a target='_new' href="lucasTill.jpeg"> <img class="lucas"  src = "lucasTill.jpeg" alt = "Lucas Till" height = "256"></a>
+
+  
+  
+  </body>
+
+</html>

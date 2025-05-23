@@ -1,17 +1,21 @@
 package com.example.coloranalysis;
+
 import java.util.Base64;
 import java.net.http.*;
 import java.net.URI;
 import java.io.IOException;
 
 import com.fasterxml.jackson.databind.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class OpenAIService {
 
-    private static final String API_KEY = System.getenv("OPENAI_API_KEY"); 
+    private static final String API_KEY = "sk-...";
+
+
     private static final String API_URL = "https://api.openai.com/v1/chat/completions";
 
     public String analyzeImage(MultipartFile image) throws IOException, InterruptedException {
@@ -19,6 +23,7 @@ public class OpenAIService {
             byte[] bytes = image.getBytes();
             String base64Image = Base64.getEncoder().encodeToString(bytes);
             String imageUrl = "data:image/jpeg;base64," + base64Image;
+
             String payload = """
             {
               "model": "gpt-4o",
@@ -47,7 +52,6 @@ public class OpenAIService {
             }
             """.formatted(imageUrl);
 
-            // Build HTTP request
             HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(API_URL))
                 .header("Authorization", "Bearer " + API_KEY)
@@ -55,14 +59,12 @@ public class OpenAIService {
                 .POST(HttpRequest.BodyPublishers.ofString(payload))
                 .build();
 
-            // Send request
             HttpResponse<String> response = HttpClient.newHttpClient()
                 .send(request, HttpResponse.BodyHandlers.ofString());
 
             System.out.println("HTTP Status Code: " + response.statusCode());
             System.out.println("OpenAI raw response:\n" + response.body());
 
-            // Parse response 
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response.body());
             JsonNode choices = root.path("choices");
@@ -79,3 +81,4 @@ public class OpenAIService {
         }
     }
 }
+
