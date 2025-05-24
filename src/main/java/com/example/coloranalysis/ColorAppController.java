@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class ColorAppController {
@@ -22,30 +21,46 @@ public class ColorAppController {
         return "index"; // maps to templates/index.html
     }
 
-    // Upload and analyze image
     @PostMapping("/upload")
     public String upload(@RequestParam("image") MultipartFile image, Model model) throws IOException, InterruptedException {
-        String result = openAIService.analyzeImage(image);
-        List<String> hexCodes = getHexColors(result);
-        String palette = getPaletteName(result);
+    // Step 1: Analyze image
+    String result = openAIService.analyzeImage(image);
+    List<String> hexCodes = getHexColors(result);
+    String palette = getPaletteName(result);
 
-        model.addAttribute("resultText", result);
-        model.addAttribute("swatches", hexCodes);
-        model.addAttribute("palette", palette);
+    // ✅ Step 2: Convert image to base64 data URI
+    String mimeType = image.getContentType(); // e.g., "image/jpeg"
+    String base64Image = Base64.getEncoder().encodeToString(image.getBytes());
+    String imageSrc = "data:" + mimeType + ";base64," + base64Image;
 
-        return "index";
-    }
+    // Step 3: Pass attributes to the model
+    model.addAttribute("resultText", result);
+    model.addAttribute("swatches", hexCodes);
+    model.addAttribute("palette", palette);
+    model.addAttribute("uploadedImage", imageSrc);  // This fixes your issue
+
+    return "index";
+}
+
 
     // Extract palette name
     private String getPaletteName(String text) {
-        String lower = text.toLowerCase();
-        int start = lower.indexOf("fits the ");
-        int end = lower.indexOf(" palette");
-        if (start != -1 && end != -1 && end > start) {
-            return text.substring(start + 9, end).trim();
+    String[] palettes = {
+        "Bright Spring", "True Spring", "Light Spring",
+        "Light Summer", "True Summer", "Soft Summer",
+        "Soft Autumn", "True Autumn", "Dark Autumn",
+        "Dark Winter", "True Winter", "Bright Winter"
+    };
+
+    for (String palette : palettes) {
+        if (text.toLowerCase().contains(palette.toLowerCase())) {
+            return palette;
         }
-        return "Unknown";
     }
+
+    return "Unknown";
+    }
+
 
     // Extract hex codes
     private List<String> getHexColors(String text) {
